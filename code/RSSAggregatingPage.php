@@ -1,5 +1,8 @@
 <?
 
+/**
+ * RSSAggregatingPage lets a CMS Authors aggregate and filter a number of RSS feed.
+ */
 class RSSAggregatingPage extends Page {
 	static $has_many = array(
 		"SourceFeeds" => "RSSAggSource",
