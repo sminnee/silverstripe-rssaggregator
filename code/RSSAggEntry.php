@@ -55,8 +55,21 @@ class RSSAggEntry extends DataObject {
 	function getDateNice() {
 		return $this->obj('Date')->Nice();
 	}
+	
 	function Link() {
 		return $this->Permalink;
+	}
+
+	// These functions are included for improved compatability with SiteTree
+	function MenuTitle() {
+		return $this->Title;
+	}
+	
+	function LinkOrCurrent() {
+		return "link";
+	}
+	function LinkingMode() {
+		return "link";
 	}
 }
 
