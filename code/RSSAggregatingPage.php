@@ -12,7 +12,7 @@ class RSSAggregatingPage extends Page {
 	function getCMSFields() {
 		$fields = parent::getCMSFields();
 		
-		if(!$_REQUEST[executeForm]) $this->updateRSS();
+		if(!isset($_REQUEST['executeForm'])) $this->updateRSS();
 		
 		$fields->addFieldToTab("Root.Content.Sources", new TableField("SourceFeeds", "RSSAggSource",
 			array(
@@ -55,13 +55,13 @@ class RSSAggregatingPage extends Page {
 		foreach($this->SourceFeeds() as $sourceFeed) {
 			$goodSourceIDs[] = $sourceFeed->ID;
 			
-			if($_REQUEST['flush'] || strtotime($sourceFeed->LastChecked) < time() - 3600) {
+			if(isset($_REQUEST['flush']) || strtotime($sourceFeed->LastChecked) < time() - 3600) {
 				$simplePie = new SimplePie($sourceFeed->RSSFeed);
 				/*$simplePie->enable_caching(false);
 				$simplePie->enable_xmldump(true);*/
 				$simplePie->init();
 			
-				$sourceFeed->Title = Convert::xml2raw($simplePie->get_feed_title());
+				$sourceFeed->Title = $simplePie->get_feed_title();
 				$sourceFeed->LastChecked = date('Y-m-d H:i:s');
 				$sourceFeed->write();
 				
