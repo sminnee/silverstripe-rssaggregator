@@ -4,10 +4,17 @@
  * RSSAggregatingPage lets a CMS Authors aggregate and filter a number of RSS feed.
  */
 class RSSAggregatingPage extends Page {
+	
+	static $db = array (
+		"NumberOfItems" => "Int"
+	);
+	
 	static $has_many = array(
 		"SourceFeeds" => "RSSAggSource",
 		"Entries" => "RSSAggEntry"
 	);
+	
+	private static $moderation_required = false;
 	
 	function getCMSFields() {
 		$fields = parent::getCMSFields();
@@ -25,8 +32,13 @@ class RSSAggregatingPage extends Page {
 			), "PageID", round($this->ID), true, "RSSFeed"
 		));
 
+		global $number_of_items_list;
+		
 		// Insert Items as the first tab
 		$fields->addFieldToTab("Root.Content", new Tab("Items"), "Main");
+		if ( !self::get_moderation_required() ) {
+			$fields->addFieldToTab("Root.Content.Items", new DropdownField('NumberOfItems','Number Of Items', $number_of_items_list));
+		}	
 		$fields->addFieldToTab("Root.Content.Items", $entries = new TableField("Entries", "RSSAggEntry",
 			array(
 				"Displayed" => "Show",
@@ -50,6 +62,7 @@ class RSSAggregatingPage extends Page {
 	 * Use SimplePie to get all the RSS feeds and agregate them into Entries
 	 */
 	function updateRSS() {
+	
 		if(!is_numeric($this->ID)) return;
 		
 		foreach($this->SourceFeeds() as $sourceFeed) {
@@ -132,6 +145,24 @@ class RSSAggregatingPage extends Page {
 		} else {
 			return $c2;
 		}
+	}
+	
+	/* 
+	 * Set moderation mode 
+	 * On (true) admin manually controls which items to display
+	 * Off (false) new imported feed item is set to display automatically
+	 * @param 	boolean
+	 */
+	static function set_moderation_required($required) {
+		self::$moderation_required = $required;
+	}
+	
+	/* 
+	 * Get feed moderation mode
+	 * @return 	boolean
+	 */
+	static function get_moderation_required() {
+		return self::$moderation_required;
 	}
 	
 }

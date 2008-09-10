@@ -19,6 +19,17 @@ class RSSAggEntry extends DataObject {
 		"PlainContentSummary" => "Text",
 	);
 	
+	/*
+	 * Set new feed item to true if feed moderation is turned off
+	 */
+	public function populateDefaults() { 
+		parent::populateDefaults();
+		if ( !RSSAggregatingPage::get_moderation_required() ) {
+			$this->Displayed = true;
+		}
+	}
+	
+	
 	function getPlainContentSummary() {
 		$content = trim(
 			strip_tags(
