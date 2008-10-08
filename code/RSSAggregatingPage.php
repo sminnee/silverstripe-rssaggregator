@@ -65,6 +65,7 @@ class RSSAggregatingPage extends Page {
 	
 		if(!is_numeric($this->ID)) return;
 		
+		$goodSourceIDs = array();
 		foreach($this->SourceFeeds() as $sourceFeed) {
 			$goodSourceIDs[] = $sourceFeed->ID;
 			
@@ -128,7 +129,9 @@ class RSSAggregatingPage extends Page {
 		if($goodSourceIDs) {
 			$list_goodSourceIDs = implode(', ', $goodSourceIDs);
 			$sourceIDClause = " AND SourceID NOT IN ($list_goodSourceIDs)";
-		}		
+		} else {
+			$sourceIDClause = '';
+		}
 		DB::query("DELETE FROM RSSAggEntry WHERE PageID = $this->ID $sourceIDClause");
 	}
 	
