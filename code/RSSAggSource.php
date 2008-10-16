@@ -8,7 +8,7 @@ class RSSAggSource extends DataObject {
 	static $db = array(
 		"Title" => "Varchar(255)",
 		"RSSFeed" => "Varchar(255)",
-		"LastChecked" => "Datetime",
+		"LastChecked" => "SSDatetime",
 	);
 	
 	static $singular_name = 'RSS Source';

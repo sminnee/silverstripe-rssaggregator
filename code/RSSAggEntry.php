@@ -8,7 +8,7 @@ class RSSAggEntry extends DataObject {
 	
 	static $db = array(
 		"Displayed" => "Boolean",
-		"Date" => "Datetime",
+		"Date" => "SSDatetime",
 		"Title" => "Varchar(255)",
 		"Content" => "HTMLText",
 		"Permalink" => "Varchar(255)",
