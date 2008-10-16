@@ -143,7 +143,7 @@ class RSSAggregatingPage extends Page {
 		$c2 = DataObject::get("RSSAggEntry", "PageID = $this->ID AND Displayed = 1", "Date ASC");
 		
 		if($c1) {
-			if($c2) $c1->append($c2);
+			if($c2) $c1->merge($c2);
 			return $c1;
 		} else {
 			return $c2;
