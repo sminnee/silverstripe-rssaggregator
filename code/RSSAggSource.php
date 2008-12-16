@@ -1,4 +1,4 @@
-<?
+<?php
 
 class RSSAggSource extends DataObject {
 	static $has_one = array(

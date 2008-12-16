@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * RSSAggregatingPage lets a CMS Authors aggregate and filter a number of RSS feed.
