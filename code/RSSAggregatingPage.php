@@ -62,9 +62,10 @@ class RSSAggregatingPage extends Page {
 	 * Use SimplePie to get all the RSS feeds and agregate them into Entries
 	 */
 	function updateRSS() {
-	
-		if(!is_numeric($this->ID)) return;
+		require_once(Director::baseFolder() . '/sapphire/thirdparty/simplepie/SimplePie.php');
 		
+		if(!is_numeric($this->ID)) return;
+
 		$goodSourceIDs = array();
 		foreach($this->SourceFeeds() as $sourceFeed) {
 			$goodSourceIDs[] = $sourceFeed->ID;
@@ -79,10 +80,11 @@ class RSSAggregatingPage extends Page {
 				$sourceFeed->LastChecked = date('Y-m-d H:i:s');
 				$sourceFeed->write();
 				
+				$idClause = '';
 				$goodIDs = array();
 			
 				$items = $simplePie->get_items();
-				if(!$items) user_error("RSS Error: $simplePie->error", E_USER_WARNING);
+				//if(!$items) user_error("RSS Error: $simplePie->error", E_USER_WARNING);
 				
 				if($items) foreach($items as $item) {
 					$entry = new RSSAggEntry();
