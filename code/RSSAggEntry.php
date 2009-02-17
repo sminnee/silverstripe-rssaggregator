@@ -70,6 +70,10 @@ class RSSAggEntry extends DataObject {
 	function Link() {
 		return $this->Permalink;
 	}
+	
+	function Permalink() {
+		return str_replace('&amp;', '&', $this->Permalink);
+	}
 
 	// These functions are included for improved compatability with SiteTree
 	function MenuTitle() {
