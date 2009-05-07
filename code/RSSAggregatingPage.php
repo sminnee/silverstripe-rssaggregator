@@ -91,6 +91,22 @@ class RSSAggregatingPage extends Page {
 					$entry->Permalink = $item->get_permalink();
 					$entry->Date = $item->get_date('Y-m-d H:i:s');
 					$entry->Title = Convert::xml2raw($item->get_title());
+					$entry->Title = str_replace(array(
+						'&nbsp;',
+						'&lsquo;',
+						'&rsquo;',
+						'&ldquo;',
+						'&rdquo;',
+						'&amp;'
+					), array(
+						'&#160;',
+						"'",
+						"'",
+						'"',
+						'"',
+						'&'
+					), $entry->Title);
+					
 					$entry->Content = str_replace(array(
 						'&nbsp;',
 						'&lsquo;',
