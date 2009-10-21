@@ -67,6 +67,13 @@ class RSSAggEntry extends DataObject {
 		return $this->obj('Date')->Nice();
 	}
 	
+	function getSourceNice() {
+		$sourceID = $this->SourceID;
+		$Source = DataObject::get_by_id('RSSAggSource',$sourceID);
+		if($Source) return $Source->Title;
+		return;
+	}
+	
 	function Link() {
 		return $this->Permalink;
 	}
