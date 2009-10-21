@@ -43,13 +43,13 @@ class RSSAggregatingPage extends Page {
 			array(
 				"Displayed" => "Show",
 				"DateNice" => "Date",
-				"Source.Title" => "Source",
+				"SourceNice" => "Source",
 				"Title" => "Title",
 			),
 			array(
 				"Displayed" => "CheckboxField",
 				"DateNice" => "ReadonlyField",
-				"Source.Title" => "ReadonlyField",
+				"SourceNice" => "ReadonlyField",
 				"Title" => "ReadonlyField",
 			), "PageID", round($this->ID), true, "Date DESC"
 		));
