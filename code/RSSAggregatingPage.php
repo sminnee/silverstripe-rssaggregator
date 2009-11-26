@@ -62,7 +62,7 @@ class RSSAggregatingPage extends Page {
 	 * Use SimplePie to get all the RSS feeds and agregate them into Entries
 	 */
 	function updateRSS() {
-		require_once(Director::baseFolder() . '/sapphire/thirdparty/simplepie/SimplePie.php');
+		require_once(Director::baseFolder() . '/rssaggregator/thirdparty/simplepie/simplepie.inc');
 		
 		if(!is_numeric($this->ID)) return;
 
