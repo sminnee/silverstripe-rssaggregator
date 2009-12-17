@@ -97,14 +97,16 @@ class RSSAggregatingPage extends Page {
 						'&rsquo;',
 						'&ldquo;',
 						'&rdquo;',
-						'&amp;'
+						'&amp;',
+						'&apos;'
 					), array(
 						'&#160;',
 						"'",
 						"'",
 						'"',
 						'"',
-						'&'
+						'&',
+						'`'
 					), $entry->Title);
 					
 					$entry->Content = str_replace(array(
@@ -113,14 +115,16 @@ class RSSAggregatingPage extends Page {
 						'&rsquo;',
 						'&ldquo;',
 						'&rdquo;',
-						'&amp;'
+						'&amp;',
+						'&apos;'
 					), array(
 						'&#160;',
 						"'",
 						"'",
 						'"',
 						'"',
-						'&'
+						'&',
+						'`'
 					), $item->get_description());
 					$entry->PageID = $this->ID;
 					$entry->SourceID = $sourceFeed->ID;
