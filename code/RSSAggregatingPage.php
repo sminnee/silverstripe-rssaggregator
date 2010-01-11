@@ -76,7 +76,7 @@ class RSSAggregatingPage extends Page {
 				$simplePie->enable_xmldump(true);*/
 				$simplePie->init();
 			
-				$sourceFeed->Title = $simplePie->get_feed_title();
+				$sourceFeed->Title = $simplePie->get_title();
 				$sourceFeed->LastChecked = date('Y-m-d H:i:s');
 				$sourceFeed->write();
 				
