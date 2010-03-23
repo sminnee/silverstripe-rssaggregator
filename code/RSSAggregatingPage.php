@@ -134,7 +134,7 @@ class RSSAggregatingPage extends Page {
 					}
 				
 					$SQL_permalink = Convert::raw2sql($entry->Permalink);
-					$existingID = DB::query("SELECT ID FROM RSSAggEntry WHERE Permalink = '$SQL_permalink' AND SourceID = $entry->SourceID AND PageID = $entry->PageID")->value();
+					$existingID = DB::query("SELECT \"ID\" FROM \"RSSAggEntry\" WHERE \"Permalink\" = '$SQL_permalink' AND \"SourceID\" = $entry->SourceID AND \"PageID\" = $entry->PageID")->value();
 				
 					if($existingID) $entry->ID = $existingID;
 					$entry->write();
@@ -143,26 +143,26 @@ class RSSAggregatingPage extends Page {
 				}
 				if($goodIDs) {
 					$list_goodIDs = implode(', ', $goodIDs);
-					$idClause = "AND ID NOT IN ($list_goodIDs)";
+					$idClause = "AND \"ID\" NOT IN ($list_goodIDs)";
 				}
-				DB::query("DELETE FROM RSSAggEntry WHERE SourceID = $sourceFeed->ID AND PageID = $this->ID $idClause");
+				DB::query("DELETE FROM \"RSSAggEntry\" WHERE \"SourceID\" = $sourceFeed->ID AND \"PageID\" = $this->ID $idClause");
 			}
 		}
 		if($goodSourceIDs) {
 			$list_goodSourceIDs = implode(', ', $goodSourceIDs);
-			$sourceIDClause = " AND SourceID NOT IN ($list_goodSourceIDs)";
+			$sourceIDClause = " AND \"SourceID\" NOT IN ($list_goodSourceIDs)";
 		} else {
 			$sourceIDClause = '';
 		}
-		DB::query("DELETE FROM RSSAggEntry WHERE PageID = $this->ID $sourceIDClause");
+		DB::query("DELETE FROM \"RSSAggEntry\" WHERE \"PageID\" = $this->ID $sourceIDClause");
 	}
 	
 	function Children() {
 		$this->updateRSS();
 		
 		// Tack the RSS feed children to the end of the children provided by the RSS feed
-		$c1 = DataObject::get("SiteTree", "ParentID = '$this->ID'");
-		$c2 = DataObject::get("RSSAggEntry", "PageID = $this->ID AND Displayed = 1", "Date ASC");
+		$c1 = DataObject::get("SiteTree", "\"ParentID\" = '$this->ID'");
+		$c2 = DataObject::get("RSSAggEntry", "\"PageID\" = $this->ID AND \"Displayed\" = 1", "\"Date\" ASC");
 		
 		if($c1) {
 			if($c2) $c1->merge($c2);
